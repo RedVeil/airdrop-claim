@@ -20,9 +20,12 @@ async function checkCode(
   supabase: SupabaseClient,
   code: string
 ): Promise<boolean> {
-  const codes = await supabase.from("Lisbon").select("code");
+  const codes = (await supabase.from("Lisbon").select("code")) || {} as any;
+  if (!codes.data) {
+    return false;
+  }
   return (
-    Object.values(codes.data).filter((usedCode) => usedCode.code === code)
+    Object.values(codes.data).filter((usedCode: any) => usedCode.code === code)
       .length > 0
   );
 }
@@ -40,6 +43,8 @@ const IndexPage = () => {
     process.env.SUPABASE_URL,
     process.env.SUPABASE_KEY
   );
+
+  const [hasWallet, setHasWallet] = useState(false);
   const [preferedNetwork, setPreferedNetwork] = useState<Network>();
   const [address, setAddress] = useState<string>();
   const [isDuplicate, setDuplicate] = useState<boolean>(false);
@@ -50,7 +55,17 @@ const IndexPage = () => {
     }
   }, [router.pathname]);
 
+  useEffect(() => {
+    activate(connectors.Injected);
+  }, []);
 
+  useEffect(() => {
+    if (context.error) {
+      setHasWallet(false);
+    } else {
+      setHasWallet(true);
+    }
+  }, [context]);
 
   useEffect(() => {
     if (!router?.query?.id || !supabase) {
@@ -354,21 +369,25 @@ const IndexPage = () => {
                       />
                     </div>
                   </div>
-                  <h3 className="text-center text-lg font-light pt-3 pb-2">
-                    Or
-                  </h3>
-                  <button
-                    className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      activate(connectors.Injected);
-                      setAddress(account);
-                      addAirdropRecipient();
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">
-                      Connect Wallet
-                    </p>
-                  </button>
+                  {hasWallet && (
+                    <>
+                      <h3 className="text-center text-lg font-light pt-3 pb-2">
+                        Or
+                      </h3>
+                      <button
+                        className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          activate(connectors.Injected);
+                          setAddress(account);
+                          addAirdropRecipient();
+                        }}
+                      >
+                        <p className="text-xl font-medium text-white">
+                          Connect Wallet
+                        </p>
+                      </button>
+                    </>
+                  )}
                 </>
               )}
             </>

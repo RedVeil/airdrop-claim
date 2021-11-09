@@ -38,6 +38,8 @@ const IndexPage = () => {
     router.push("https://popcorn.network/")
   }, []);
 
+
+  
   return <div className=""></div>;
 };
 
