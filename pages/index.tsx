@@ -46,7 +46,7 @@ const IndexPage = () => {
   return (
     <>
       {/* Desktop + Large Desktop */}
-      <div className="hidden xl:flex flex-col w-full h-screen bg-primaryLight">
+      <div className="hidden xl:flex flex-col w-full h-screen overflow-hidden bg-primaryLight">
         <div className="mx-auto mt-8">
           <img src="/textLogo.png" className="h-14 w-64" />
         </div>
@@ -99,20 +99,20 @@ const IndexPage = () => {
       </div>
       {/* Mobile + Tablet */}
       <div className="w-full h-screen xl:hidden bg-primaryLight">
-        <div className="w-full flex flex-row justify-center pt-12">
+        <div className="w-full flex flex-row justify-center pt-8">
           <img src="/textLogo.png" className="h-14 w-64" />
         </div>
-        <div className="w-9/12 mx-auto z-20 mt-10 md:mt-40">
+        <div className="w-9/12 mx-auto z-40 mt-10 md:mt-40">
           <div className="flex flex-col md:hidden">
             <div className="flex flex-row justify-evenly">
               <div className="text-center">
-                <h1 className="font-bold text-7xl leading-snug">
+                <h1 className="font-bold text-5xl leading-snug">
                   {countdown[0]}
                 </h1>
                 <p className="text-3xl font-landing text-gray-800">Days</p>
               </div>
               <div className="text-center">
-                <h1 className="font-bold text-7xl leading-snug">
+                <h1 className="font-bold text-5xl leading-snug">
                   {countdown[1]}
                 </h1>
                 <p className="text-3xl font-landing text-gray-800">Hours</p>
@@ -120,13 +120,13 @@ const IndexPage = () => {
             </div>
             <div className="flex flex-row justify-evenly">
               <div className="text-center">
-                <h1 className="font-bold text-7xl leading-snug">
+                <h1 className="font-bold text-5xl leading-snug">
                   {countdown[2]}
                 </h1>
                 <p className="text-3xl font-landing text-gray-800">Minutes</p>
               </div>
               <div className="text-center">
-                <h1 className="font-bold text-7xl leading-snug">
+                <h1 className="font-bold text-5xl leading-snug">
                   {countdown[3]}
                 </h1>
                 <p className="text-3xl font-landing text-gray-800">Seconds</p>
@@ -159,7 +159,7 @@ const IndexPage = () => {
               <p className="text-3xl font-landing text-gray-800">Seconds</p>
             </div>
           </div>
-          <h3 className="font-light text-gray-800 text-4xl pt-8 text-center">
+          <h3 className="relative font-light text-gray-800 text-3xl pt-8 text-center z-20">
             Coming soon...
           </h3>
         </div>
