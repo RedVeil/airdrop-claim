@@ -21,9 +21,9 @@ async function checkCode(
   code: string
 ): Promise<boolean> {
   const codes = await supabase.from("Lisbon").select("code");
-  console.log(codes);
+  console.log(codes)
   //return codes.includes(code);
-  return true;
+  return true
 }
 
 const IndexPage = () => {
@@ -77,15 +77,7 @@ const IndexPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!account) {
-      return;
-    }
-    addAirdropRecipient();
-  }, [account]);
-
   async function addAirdropRecipient(): Promise<void> {
-    console.log(account);
     try {
       await supabase.from("Lisbon").insert([
         {
@@ -203,7 +195,7 @@ const IndexPage = () => {
             </div>
           ) : (
             <>
-              <div className="mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
+              <div className="relative z-20 mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
                 <input
                   type="text"
                   name="address"
@@ -226,7 +218,11 @@ const IndexPage = () => {
               <h3 className="text-center text-lg font-light pt-3 pb-2">Or</h3>
               <button
                 className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                onClick={() => activate(connectors.Injected)}
+                onClick={() => {
+                  activate(connectors.Injected);
+                  setAddress(account);
+                  addAirdropRecipient();
+                }}
               >
                 <p className="text-xl font-medium text-white">Connect Wallet</p>
               </button>
