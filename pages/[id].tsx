@@ -332,7 +332,7 @@ const IndexPage = () => {
                     <input
                       type="text"
                       name="address"
-                      className="w-10/12 p-2 text-base mx-2 text-gray-900"
+                      className="w-10/12 p-2 border-none text-base mx-2 text-gray-900"
                       placeholder="ethereum address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
