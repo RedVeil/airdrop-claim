@@ -21,9 +21,9 @@ async function checkCode(
   supabase: SupabaseClient,
   code: string
 ): Promise<boolean> {
-  if (!uniqueCodes.includes(code)) {
-    return true;
-  }
+  // if (!uniqueCodes.includes(code)) {
+  //   return true;
+  // }
   const codes = (await supabase.from("Lisbon").select("code")) || ({} as any);
 
   if (!codes.data) {
