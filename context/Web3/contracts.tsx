@@ -11,9 +11,6 @@ import { connectors, networkMap } from './connectors';
 import { Contract } from "ethers"
 import baycAbi from "../../utils/baycAbi.json"
 
-
-
-
 interface ContractContext {
   contract: Contract;
   setContract: React.Dispatch<Contract>;
@@ -65,10 +62,11 @@ export default function ContractsWrapper({
 
   useEffect(() => {
     if (error) {
+      return;
       dispatch(
         setSingleActionModal({
           content: getErrorMessage(error),
-          title: 'Wallet Error',
+          title: 'No wallet found',
           visible: true,
           type: 'error',
           onConfirm: {

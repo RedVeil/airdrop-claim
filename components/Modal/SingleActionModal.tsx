@@ -30,7 +30,7 @@ export const SingleActionModal: React.FC<SingleActionModalProps> = ({
       role="dialog"
       aria-modal="true"
     >
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="flex sm:items-start md:items-end lg:items-end xl:items-end 2xl:items-end justify-center lg:min-h-screen 2xl:min-h-screen xl:min-h-screen lg:min-h-screen md:min-h-screen  sm:min-h-0 pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
           aria-hidden="true"
@@ -97,7 +97,7 @@ export const SingleActionModal: React.FC<SingleActionModalProps> = ({
           <div className="mt-5 sm:mt-6">
             <button
               type="button"
-              className="button button-primary w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              className="button button-primary bg-blue-600 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
               onClick={() => onConfirm.onClick && onConfirm.onClick()}
             >
               {onConfirm.label}

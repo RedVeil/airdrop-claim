@@ -21,9 +21,9 @@ async function checkCode(
   code: string
 ): Promise<boolean> {
   const codes = await supabase.from("Lisbon").select("code");
-  console.log(codes)
+  console.log(codes);
   //return codes.includes(code);
-  return true
+  return true;
 }
 
 const IndexPage = () => {
@@ -35,10 +35,23 @@ const IndexPage = () => {
   const [countdown, setCountdown] = useState<number[]>([]);
   const [countdownActive, disableCountdown] = useState<boolean>(true);
   const [step, setStep] = useState<Step>(Step.Network);
+  const [hasWallet, setHasWallet] = useState(false);
   const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_KEY
   );
+
+  useEffect(() => {
+    activate(connectors.Injected);
+  }, []);
+
+  useEffect(() => {
+    if (context.error) {
+      setHasWallet(false);
+    } else {
+      setHasWallet(true);
+    }
+  }, [context]);
   const [preferedNetwork, setPreferedNetwork] = useState<Network>();
   const [address, setAddress] = useState<string>();
 
@@ -215,17 +228,22 @@ const IndexPage = () => {
                   />
                 </div>
               </div>
-              <h3 className="text-center text-lg font-light pt-3 pb-2">Or</h3>
-              <button
-                className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                onClick={() => {
-                  activate(connectors.Injected);
-                  setAddress(account);
-                  addAirdropRecipient();
-                }}
-              >
-                <p className="text-xl font-medium text-white">Connect Wallet</p>
-              </button>
+
+              {hasWallet && (<>
+                <h3 className="text-center text-lg font-light pt-3 pb-2">Or</h3>
+                <button
+                  className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                  onClick={() => {
+                    activate(connectors.Injected);
+                    setAddress(account);
+                    addAirdropRecipient();
+                  }}
+                >
+                  <p className="text-xl font-medium text-white">
+                    Connect Wallet
+                  </p>
+                </button>
+              </>)}
             </>
           )}
         </div>
