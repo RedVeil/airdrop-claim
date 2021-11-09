@@ -5,6 +5,7 @@ import { connectors } from "context/Web3/connectors";
 import { ContractContext } from "context/Web3/contracts";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import uniqueCodes from "../public/uniqueCodes.json";
 
 enum Step {
   Network,
@@ -20,10 +21,15 @@ async function checkCode(
   supabase: SupabaseClient,
   code: string
 ): Promise<boolean> {
-  const codes = (await supabase.from("Lisbon").select("code")) || {} as any;
+  if (!uniqueCodes.includes(code)) {
+    return true;
+  }
+  const codes = (await supabase.from("Lisbon").select("code")) || ({} as any);
+
   if (!codes.data) {
     return false;
   }
+
   return (
     Object.values(codes.data).filter((usedCode: any) => usedCode.code === code)
       .length > 0
@@ -151,10 +157,10 @@ const IndexPage = () => {
           </div>
           {isDuplicate ? (
             <>
-              <h3 className="text-center text-2xl font-light pb-2 pt-18">
+              <h3 className="text-center text-2xl font-light pb-2 pt-14 z-20">
                 Code was already used...
               </h3>
-              <p className="text-xl 2xl:text-5xl font-light text-center mt-4">
+              <p className="text-xl 2xl:text-5xl font-light text-center">
                 Be sure to join our Liquidity Event on{" "}
                 <span className="font-medium">Nov. 29</span>. Join our community
                 on
