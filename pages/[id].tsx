@@ -161,7 +161,7 @@ const IndexPage = () => {
                 Code was already used...
               </h3>
               <p className="text-xl 2xl:text-5xl font-light text-center">
-                Be sure to join our Liquidity Event on{" "}
+                Be sure to join our Liquidity Bootstrapping Event on{" "}
                 <span className="font-medium">Nov. 29</span>. Join our community
                 on
                 <a
@@ -304,7 +304,7 @@ const IndexPage = () => {
                 Code was already used...
               </h3>
               <p className="text-xl 2xl:text-5xl font-light text-center mt-4">
-                Be sure to join our Liquidity Event on{" "}
+                Be sure to join our Liquidity Bootstrapping Event on{" "}
                 <span className="font-medium">Nov. 29</span>. Join our community
                 on
                 <a

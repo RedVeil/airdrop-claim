@@ -26,7 +26,7 @@ export default function thanksPage(): JSX.Element {
           <div className="z-20">
             <p className="mt-4 text-xl lg:text-2xl 2xl:text-3xl font-light z-10">
               We will send you xPOP on your prefered network. Be sure to join
-              our Liquidity Event on{" "}
+              our Liquidity Bootstrapping Event on{" "}
               <span className="font-normal">Nov. 29</span>. Afterwards you will
               be able to convert your xPOP into POP.
             </p>
