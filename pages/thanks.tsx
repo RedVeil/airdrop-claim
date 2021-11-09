@@ -6,36 +6,12 @@ import { useContext, useEffect, useState } from "react";
 
 export default function thanksPage(): JSX.Element {
   const router = useRouter();
-  const context = useWeb3React<Web3Provider>();
-  const { contract } = useContext(ContractContext);
-  const { library, account, activate, active } = context;
-  const endDate = 1636549200000; //Nov 10, 13.00.00 UTC
-  const [countdown, setCountdown] = useState<number[]>([]);
-  const [countdownActive, disableCountdown] = useState<boolean>(true);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.location.pathname !== "/") {
       router.replace(window.location.pathname);
     }
   }, [router.pathname]);
-  setInterval(function () {
-    const now = new Date().getTime();
-
-    const distance = endDate - now;
-    if (distance < 0) {
-      disableCountdown(false);
-      setCountdown([0, 0, 0, 0]);
-    }
-
-    // Time calculations for days, hours, minutes and seconds
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    setCountdown([hours, minutes, seconds]);
-  }, 1000);
 
   return (
     <div className="w-full h-screen bg-primaryLight overflow-hidden">

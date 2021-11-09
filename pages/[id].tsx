@@ -50,6 +50,8 @@ const IndexPage = () => {
     }
   }, [router.pathname]);
 
+
+
   useEffect(() => {
     if (!router?.query?.id || !supabase) {
       return;
@@ -61,26 +63,30 @@ const IndexPage = () => {
 
   useEffect(() => {
     if (countdownActive) {
+      calcCountdown();
       setInterval(function () {
-        const now = new Date().getTime();
-
-        const distance = endDate - now;
-        if (distance < 0) {
-          disableCountdown(false);
-          setCountdown([0, 0, 0, 0]);
-        }
-
-        // Time calculations for days, hours, minutes and seconds
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        setCountdown([hours, minutes, seconds]);
+        calcCountdown();
       }, 1000);
     }
   }, []);
+
+  function calcCountdown() {
+    const now = new Date().getTime();
+
+    const distance = endDate - now;
+    if (distance < 0) {
+      disableCountdown(false);
+      setCountdown([0, 0, 0, 0]);
+    }
+
+    // Time calculations for days, hours, minutes and seconds
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    setCountdown([hours, minutes, seconds]);
+  }
 
   async function addAirdropRecipient(): Promise<void> {
     try {
