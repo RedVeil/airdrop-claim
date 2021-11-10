@@ -5,7 +5,6 @@ import { connectors } from "context/Web3/connectors";
 import { ContractContext } from "context/Web3/contracts";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import uniqueCodes from "../public/uniqueCodes.json";
 
 enum Step {
   Network,
@@ -105,8 +104,8 @@ const IndexPage = () => {
     let hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    if(days > 0){
-      hours += 24
+    if (days > 0) {
+      hours += 24;
     }
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -159,99 +158,107 @@ const IndexPage = () => {
               <p className="text-3xl font-landing text-gray-800">Seconds</p>
             </div>
           </div>
-          {isDuplicate ? (
+          {countdownActive && (
             <>
-              <h3 className="text-center text-2xl font-light pb-2 pt-14 z-20">
-                Code was already used...
-              </h3>
-              <p className="text-xl 2xl:text-5xl font-light text-center">
-                Be sure to join our Liquidity Bootstrapping Event on{" "}
-                <span className="font-medium">Nov. 29</span>. Join our community
-                on
-                <a
-                  className="font-medium cursor-pointer ml-2"
-                  href="https://discord.gg/RN4VGqPDwX"
-                  target="_blank"
-                >
-                  Discord
-                </a>{" "}
-                or follow us on
-                <a
-                  className="font-medium cursor-pointer ml-1"
-                  href="https://twitter.com/popcorn_DAO"
-                  target="_blank"
-                >
-                  Twitter
-                </a>{" "}
-                for more information!
-              </p>
-            </>
-          ) : (
-            <>
-              <h3 className="text-center text-3xl font-light pb-4 pt-18">
-                {step === Step.Network
-                  ? "Choose a Network"
-                  : "Register for Airdrop"}
-              </h3>
-              {step === Step.Network ? (
-                <div className="mx-auto w-6/12 flex flex-row items-center">
-                  <button
-                    className="relative w-full py-3 px-3 mr-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      setPreferedNetwork(Network.Polygon);
-                      setStep(Step.Adress);
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">Polygon</p>
-                  </button>
-                  <button
-                    className="relative w-full py-3 px-3 ml-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      setPreferedNetwork(Network.Arbitrum);
-                      setStep(Step.Adress);
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">Arbitrum</p>
-                  </button>
-                </div>
-              ) : (
-                <div className="w-8/12 mx-auto">
-                  <div className="relative z-20 mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
-                    <input
-                      type="text"
-                      name="address"
-                      className="w-10/12 p-2 border-none text-base mx-2 text-gray-900"
-                      placeholder="ethereum address"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                    <div className="clear">
-                      <input
-                        type="submit"
-                        value="Register"
-                        name="submit"
-                        className="font-medium text-base bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-4 py-2 cursor-pointer"
-                        readOnly
-                        onClick={() => addAirdropRecipient()}
-                      />
-                    </div>
-                  </div>
-                  <h3 className="text-center text-2xl font-light pt-5 pb-4">
-                    Or
+              {isDuplicate ? (
+                <>
+                  <h3 className="text-center text-2xl font-light pb-2 pt-14 z-20">
+                    Code was already used...
                   </h3>
-                  <button
-                    className="mx-auto relative w-8/12 py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      activate(connectors.Injected);
-                      setAddress(account);
-                      addAirdropRecipient();
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">
-                      Connect Wallet
-                    </p>
-                  </button>
-                </div>
+                  <p className="text-xl 2xl:text-5xl font-light text-center">
+                    Be sure to join our Liquidity Bootstrapping Event on{" "}
+                    <span className="font-medium">Nov. 29</span>. Join our
+                    community on
+                    <a
+                      className="font-medium cursor-pointer ml-2"
+                      href="https://discord.gg/RN4VGqPDwX"
+                      target="_blank"
+                    >
+                      Discord
+                    </a>{" "}
+                    or follow us on
+                    <a
+                      className="font-medium cursor-pointer ml-1"
+                      href="https://twitter.com/popcorn_DAO"
+                      target="_blank"
+                    >
+                      Twitter
+                    </a>{" "}
+                    for more information!
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3 className="text-center text-3xl font-light pb-4 pt-18">
+                    {step === Step.Network
+                      ? "Choose a Network"
+                      : "Register for Airdrop"}
+                  </h3>
+                  {step === Step.Network ? (
+                    <div className="mx-auto w-6/12 flex flex-row items-center">
+                      <button
+                        className="relative w-full py-3 px-3 mr-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          setPreferedNetwork(Network.Polygon);
+                          setStep(Step.Adress);
+                        }}
+                      >
+                        <p className="text-xl font-medium text-white">
+                          Polygon
+                        </p>
+                      </button>
+                      <button
+                        className="relative w-full py-3 px-3 ml-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          setPreferedNetwork(Network.Arbitrum);
+                          setStep(Step.Adress);
+                        }}
+                      >
+                        <p className="text-xl font-medium text-white">
+                          Arbitrum
+                        </p>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-8/12 mx-auto">
+                      <div className="relative z-20 mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
+                        <input
+                          type="text"
+                          name="address"
+                          className="w-10/12 p-2 border-none text-base mx-2 text-gray-900"
+                          placeholder="ethereum address"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                        />
+                        <div className="clear">
+                          <input
+                            type="submit"
+                            value="Register"
+                            name="submit"
+                            className="font-medium text-base bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-4 py-2 cursor-pointer"
+                            readOnly
+                            onClick={() => addAirdropRecipient()}
+                          />
+                        </div>
+                      </div>
+                      <h3 className="text-center text-2xl font-light pt-5 pb-4">
+                        Or
+                      </h3>
+                      <button
+                        className="mx-auto relative w-8/12 py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          activate(connectors.Injected);
+                          setAddress(account);
+                          addAirdropRecipient();
+                        }}
+                      >
+                        <p className="text-xl font-medium text-white">
+                          Connect Wallet
+                        </p>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}
@@ -302,100 +309,108 @@ const IndexPage = () => {
               <p className="text-2xl font-light text-gray-800">Seconds</p>
             </div>
           </div>
-          {isDuplicate ? (
+          {countdownActive && (
             <>
-              <h3 className="text-center text-2xl font-light pb-2 pt-18">
-                Code was already used...
-              </h3>
-              <p className="text-xl 2xl:text-5xl font-light text-center mt-4">
-                Be sure to join our Liquidity Bootstrapping Event on{" "}
-                <span className="font-medium">Nov. 29</span>. Join our community
-                on
-                <a
-                  className="font-medium cursor-pointer ml-2"
-                  href="https://discord.gg/RN4VGqPDwX"
-                  target="_blank"
-                >
-                  Discord
-                </a>{" "}
-                or follow us on
-                <a
-                  className="font-medium cursor-pointer ml-1"
-                  href="https://twitter.com/popcorn_DAO"
-                  target="_blank"
-                >
-                  Twitter
-                </a>{" "}
-                for more information!
-              </p>
-            </>
-          ) : (
-            <>
-              <h3 className="text-center text-2xl font-light pb-2 pt-18">
-                {step === Step.Network
-                  ? "Choose a Network"
-                  : "Register for Airdrop"}
-              </h3>
-              {step === Step.Network ? (
-                <div className="mx-auto w-full flex flex-row items-center">
-                  <button
-                    className="relative w-full py-3 px-3 mr-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      setPreferedNetwork(Network.Polygon);
-                      setStep(Step.Adress);
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">Polygon</p>
-                  </button>
-                  <button
-                    className="relative w-full py-3 px-3 ml-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      setPreferedNetwork(Network.Arbitrum);
-                      setStep(Step.Adress);
-                    }}
-                  >
-                    <p className="text-xl font-medium text-white">Arbitrum</p>
-                  </button>
-                </div>
+              {isDuplicate ? (
+                <>
+                  <h3 className="text-center text-2xl font-light pb-2 pt-18">
+                    Code was already used...
+                  </h3>
+                  <p className="text-xl 2xl:text-5xl font-light text-center mt-4">
+                    Be sure to join our Liquidity Bootstrapping Event on{" "}
+                    <span className="font-medium">Nov. 29</span>. Join our
+                    community on
+                    <a
+                      className="font-medium cursor-pointer ml-2"
+                      href="https://discord.gg/RN4VGqPDwX"
+                      target="_blank"
+                    >
+                      Discord
+                    </a>{" "}
+                    or follow us on
+                    <a
+                      className="font-medium cursor-pointer ml-1"
+                      href="https://twitter.com/popcorn_DAO"
+                      target="_blank"
+                    >
+                      Twitter
+                    </a>{" "}
+                    for more information!
+                  </p>
+                </>
               ) : (
                 <>
-                  <div className="relative z-20 mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
-                    <input
-                      type="text"
-                      name="address"
-                      className="w-10/12 p-2 border-none text-base mx-2 text-gray-900"
-                      placeholder="ethereum address"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                    <div className="clear">
-                      <input
-                        type="submit"
-                        value="Register"
-                        name="submit"
-                        className="font-medium text-base bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-4 py-2 cursor-pointer"
-                        readOnly
-                        onClick={() => addAirdropRecipient()}
-                      />
-                    </div>
-                  </div>
-                  {hasWallet && (
-                    <>
-                      <h3 className="text-center text-lg font-light pt-3 pb-2">
-                        Or
-                      </h3>
+                  <h3 className="text-center text-2xl font-light pb-2 pt-18">
+                    {step === Step.Network
+                      ? "Choose a Network"
+                      : "Register for Airdrop"}
+                  </h3>
+                  {step === Step.Network ? (
+                    <div className="mx-auto w-full flex flex-row items-center">
                       <button
-                        className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        className="relative w-full py-3 px-3 mr-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
                         onClick={() => {
-                          activate(connectors.Injected);
-                          setAddress(account);
-                          addAirdropRecipient();
+                          setPreferedNetwork(Network.Polygon);
+                          setStep(Step.Adress);
                         }}
                       >
                         <p className="text-xl font-medium text-white">
-                          Connect Wallet
+                          Polygon
                         </p>
                       </button>
+                      <button
+                        className="relative w-full py-3 px-3 ml-2 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          setPreferedNetwork(Network.Arbitrum);
+                          setStep(Step.Adress);
+                        }}
+                      >
+                        <p className="text-xl font-medium text-white">
+                          Arbitrum
+                        </p>
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="relative z-20 mx-auto shadow-lg bg-white rounded-xl py-2 px-2 w-full flex flex-row items-center justify-between">
+                        <input
+                          type="text"
+                          name="address"
+                          className="w-10/12 p-2 border-none text-base mx-2 text-gray-900"
+                          placeholder="ethereum address"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                        />
+                        <div className="clear">
+                          <input
+                            type="submit"
+                            value="Register"
+                            name="submit"
+                            className="font-medium text-base bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-4 py-2 cursor-pointer"
+                            readOnly
+                            onClick={() => addAirdropRecipient()}
+                          />
+                        </div>
+                      </div>
+                      {hasWallet && (
+                        <>
+                          <h3 className="text-center text-lg font-light pt-3 pb-2">
+                            Or
+                          </h3>
+                          <button
+                            className="relative w-full py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700"
+                            onClick={() => {
+                              activate(connectors.Injected);
+                              setAddress(account);
+                              addAirdropRecipient();
+                            }}
+                          >
+                            <p className="text-xl font-medium text-white">
+                              Connect Wallet
+                            </p>
+                          </button>
+                        </>
+                      )}
                     </>
                   )}
                 </>
