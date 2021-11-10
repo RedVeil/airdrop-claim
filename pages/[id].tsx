@@ -41,7 +41,7 @@ const IndexPage = () => {
   const context = useWeb3React<Web3Provider>();
   const { contract } = useContext(ContractContext);
   const { library, account, activate, active } = context;
-  const endDate = 1636549200000; //Nov 10, 13.00.00 UTC
+  const endDate = 1636635600000; //Nov 11, 13.00.00 UTC
   const [countdown, setCountdown] = useState<number[]>([]);
   const [countdownActive, disableCountdown] = useState<boolean>(true);
   const [step, setStep] = useState<Step>(Step.Network);
@@ -101,9 +101,13 @@ const IndexPage = () => {
     }
 
     // Time calculations for days, hours, minutes and seconds
-    const hours = Math.floor(
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
+    if(days > 0){
+      hours += 24
+    }
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     setCountdown([hours, minutes, seconds]);
