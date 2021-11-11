@@ -40,7 +40,7 @@ const IndexPage = () => {
   const context = useWeb3React<Web3Provider>();
   const { contract } = useContext(ContractContext);
   const { library, account, activate, active } = context;
-  const endDate = 1636635600000; //Nov 11, 13.00.00 UTC
+  const endDate = 1636722000000; //Nov 12, 13.00.00 UTC
   const [countdown, setCountdown] = useState<number[]>([]);
   const [countdownActive, disableCountdown] = useState<boolean>(true);
   const [step, setStep] = useState<Step>(Step.Network);
